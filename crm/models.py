@@ -42,7 +42,7 @@ class Student(models.Model):
 
 class UserProfile(models.Model):
     """用户信息表"""
-    user = models.ForeignKey(User)
+    user = models.OneToOneField(User) #只能是one2one，不能是fk，避免一个django用户被多个别名引用
     name = models.CharField(max_length=64, verbose_name='姓名')
     role = models.ManyToManyField('Role', blank=True, null=True)
 
@@ -53,6 +53,7 @@ class UserProfile(models.Model):
 class Role(models.Model):
     """角色表"""
     name = models.CharField(max_length=64, unique=True)
+    menu = models.ManyToManyField('MenuUrl')
 
     def __str__(self):
         return self.name
@@ -159,3 +160,19 @@ class Branch(models.Model):
     """校区"""
     name = models.CharField(max_length=64)
     address = models.CharField(max_length=128)
+
+
+class MenuUrl(models.Model):
+    """菜单地址"""
+    url_type_choices = (
+        (0, 'absolute'),
+        (1, 'dynamic'),
+    )
+    url_type = models.SmallIntegerField(choices=url_type_choices, default=1)
+    url_name = models.CharField(max_length=64, unique=True)
+    url_detail = models.CharField(max_length=128)
+
+    def __str__(self):
+        return self.url_name
+
+
