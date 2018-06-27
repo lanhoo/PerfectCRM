@@ -1,0 +1,35 @@
+{% extends 'kingadmin/dashboard.html' %}
+
+{#{'crm': {'userprofile':#}
+{#<kingadmin.admin_base.BaseKingAdmin object at 0x7f036076bb00>,#}
+{#    'custominfo':#}
+{#    <crm.kingadmin.CustomerAdmin object at 0x7f036076b9e8>,#}
+{#        'role':#}
+{#        <kingadmin.admin_base.BaseKingAdmin object at 0x7f036076ba90>,#}
+{#            'menuurl':#}
+{#            <kingadmin.admin_base.BaseKingAdmin object at 0x7f036076bac8>}}#}
+
+{% block body_right %}
+    <h2 class="page-header"></h2>
+    {% for app_name, model_row in site.enable_admin.items %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ app_name }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for model_name in model_row %}
+                <tr>
+                    <td>{{ model_name }}</td>
+                    <td>ADD</td>
+                    <td>Change</td>
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+    {% endfor %}
+{% endblock %}

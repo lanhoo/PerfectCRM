@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^logout/', views.acc_logout, name='logout'),
 
     url(r'^crm/', include('crm.urls')),
+    url(r'^kingadmin/', include('kingadmin.urls')),
 ]
